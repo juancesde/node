@@ -1,20 +1,23 @@
-const sql = require('mssql');
+const { Pool } = require('pg');
 const config = require('../config');
 
- const dbSettings = {
+const pool = new Pool({
   user: config.dbUser,
-  password: config.dbPassword,
-  server: config.dbServer,
+  host: config.dbServer,
   database: config.dbDatabase,
-  options:{
-    trustServerCertificate: true
-  },
-};
+  password: config.dbPassword,
+  port: config.dbPort,
+  ssl: {
+    rejectUnauthorized: false,
+}
+})
 
-const getConnection = async () => {
+const getConnection = ()  => {
   try {
-    const pool = await sql.connect(dbSettings);
-    return pool;
+    const conn = pool.query('SELECT NOW()')
+    if(conn!==null){
+      return pool;
+    }
   } catch (error) {
     console.error(error);
   }

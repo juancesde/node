@@ -1,8 +1,8 @@
 class  Course{
-    constructor(Id,Title,Teach){
+    constructor(Id,Description,Teacher){
       this.Id = Id;
-      this.Title = Title;
-      this.Teach = Teach;
+      this.Description = Description;
+      this.Teacher = Teacher;
     }
   }
   
